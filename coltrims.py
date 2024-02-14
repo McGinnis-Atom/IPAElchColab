@@ -476,6 +476,27 @@ class Particle:
     def __len__(self):
         return len(self.px)
 
+    def __getitem__(self, index):
+        return Particle(
+            x=self._x[index],
+            y=self._y[index],
+            tof=self._tof[index],
+            q = self._q[index] if isinstance(self._q, np.ndarray) else self._q,
+            m = self._m[index] if isinstance(self._m, np.ndarray) else self._m,
+            tofMean = self._tofMean,
+            px = self._px[index],
+            py = self._py[index],
+            pz = self._pz[index],
+            p = self._p[index],
+            energy = self.energy[index],
+            spectrometer = self._spectrometer,
+            calcSettings = self._calcSettings,
+            isIonSide = True if self._mirrorYElectron == 1 else False,
+            recalculateMomentum = self._recalculateMomentum,
+            dtype = self._dtype,
+            ctype = self._ctype
+        )
+
 class Electron(Particle):
     from typing import Optional
     import numpy as np
